@@ -1,2 +1,3 @@
-rootProject.name = 'onlab2'
+rootProject.name = 'j2eehw'
 
+include 'j2eehw-war', 'j2eehw-ejb'
