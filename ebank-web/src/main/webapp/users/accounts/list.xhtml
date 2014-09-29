@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<body>
+<ui:composition>
+    <p:panel header="List Accounts">
+        <h:form id="AccountListForm">
+
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+            <p:dataTable id="datalist" var="account" value="#{accountController.accountsOfUser}">
+                <p:column headerText="id">
+                    <h:outputText value="#{account.accountId}"/>
+                </p:column>
+
+                <p:column headerText="Create date">
+                    <h:outputText value="#{account.createdate}">
+                        <f:convertDateTime type="date" pattern="YYYY-MM-dd HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Balance">
+                    <h:outputText value="#{account.balance}"/>
+                </p:column>
+
+                <p:column headerText="Currency">
+                    <h:outputText value="#{account.currency}"/>
+                </p:column>
+
+                <p:column headerText="Owner">
+                    <h:outputText value="#{account.user.email}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </p:panel>
+</ui:composition>
+
+</body>
+</html>

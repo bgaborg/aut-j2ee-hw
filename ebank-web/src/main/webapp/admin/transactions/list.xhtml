@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<body>
+<ui:composition>
+    <p:panel header="List Transactions">
+        <h:form id="TransactionListForm">
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+            <p:dataTable id="datalist" var="transaction" value="#{transactionController.getItems()}">
+                <p:column headerText="Transaction id">
+                    <h:outputText value="#{transaction.id}"/>
+                </p:column>
+
+                <p:column headerText="From account">
+                    <h:outputText value="#{transaction.fromId}"/>
+                </p:column>
+
+                <p:column headerText="To account">
+                    <h:outputText value="#{transaction.toId}"/>
+                </p:column>
+
+                <p:column headerText="Currency">
+                    <h:outputText value="#{transaction.currency}"/>
+                </p:column>
+
+                <p:column headerText="Amount">
+                    <h:outputText value="#{transaction.amount}"/>
+                </p:column>
+
+                <p:column headerText="Date">
+                    <h:outputText value="#{transaction.date}">
+                        <f:convertDateTime type="date" pattern="YYYY-MM-dd HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Actions">
+
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash" value="Delete"
+                                     update=":growl,datalist">
+                        <p:confirm header="Confirm" message="Do you really want to delete #{transaction}?"
+                                   icon="ui-icon-alert"/>
+                        <f:actionListener binding="#{transactionController.delete(transaction)}"/>
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton" icon="ui-icon-plus" value="Create"
+                             actionListener="#{transactionController.prepareCreate}" update=":TransactionCreateForm"
+                             oncomplete="PF('TransactionCreateDialog').show()"/>
+        </h:form>
+    </p:panel>
+</ui:composition>
+
+</body>
+</html>

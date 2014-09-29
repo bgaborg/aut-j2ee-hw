@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <application>
+        <!--resource-bundle>
+            <base-name>/MyBundle</base-name>
+            <var>myBundle</var>
+        </resource-bundle-->
+
+    </application>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/logout</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>initApp</from-outcome>
+            <to-view-id>/initApp</to-view-id>
+        </navigation-case>
+
+        <!-- User -->
+
+        <navigation-case>
+            <from-outcome>userAccounts</from-outcome>
+            <to-view-id>/users/accounts/index.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>userTransactions</from-outcome>
+            <to-view-id>/users/transactions/index.xhtml</to-view-id>
+        </navigation-case>
+
+        <!-- Admin -->
+
+        <navigation-case>
+            <from-outcome>adminIndex</from-outcome>
+            <to-view-id>/admin/users/index.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>adminUsers</from-outcome>
+            <to-view-id>/admin/users/index.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>adminGroups</from-outcome>
+            <to-view-id>/admin/groups/index.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>adminAccounts</from-outcome>
+            <to-view-id>/admin/accounts/index.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>adminTransactions</from-outcome>
+            <to-view-id>/admin/transactions/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

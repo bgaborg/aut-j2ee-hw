@@ -1,0 +1,9 @@
+body{
+    font-size:12px;
+    margin: 0;
+}
+
+.column {
+    font-weight: bold;
+    background-color: menu;
+}

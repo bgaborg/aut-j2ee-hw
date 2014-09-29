@@ -1,41 +1,24 @@
-apply plugin: 'ear'
-apply plugin: 'java'
+allprojects {
+    apply plugin: 'idea'
 
-repositories { mavenCentral() }
 
-group = 'com.bg'
-version = 1.0
-sourceCompatibility = 1.7
+    group = 'com.bg.ebank'
+    version = '1.0-SNAPSHOT'
 
-dependencies {
-    // The following dependencies will be the ear modules and
-    // will be placed in the ear root
-    deploy project(':j2eehw-war')
-//    deploy project(':j2eehw-ejb')
-
-    // The following dependencies will become ear libs and will
-    // be placed in a dir configured via the libDirName property
-    earlib group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
 }
 
-ear {
-    appDirName 'src/main/app'  // use application metadata found in this folder
-    // put dependent libraries into APP-INF/lib inside the generated EAR
-    libDirName 'APP-INF/lib'
-    deploymentDescriptor {  // custom entries for application.xml:
-//      fileName = "application.xml"  // same as the default value
-//      version = "6"  // same as the default value
-        applicationName = "customear"
-        initializeInOrder = true
-        // defaults to project.description if not set
-        description = "My customized EAR for the Gradle documentation"
-//      libraryDirectory = "APP-INF/lib"  // not needed, above libDirName setting does this
-//      module("my.jar", "java")  // won't deploy as my.jar isn't deploy dependency
-//      webModule("my.war", "/")  // won't deploy as my.war isn't deploy dependency
-        securityRole "admin"
-        securityRole "superadmin"
-        /*withXml { provider -> // add a custom node to the XML
-            provider.asNode().appendNode("data-source", "my/data/source")
-        }*/
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+
+    repositories {
+        mavenLocal()
+
+        maven { url "http://repo.maven.apache.org/maven2" }
     }
+
+
 }

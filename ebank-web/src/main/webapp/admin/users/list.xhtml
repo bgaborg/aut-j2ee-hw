@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+    <p:panel header="List users">
+        <h:form id="UserListForm">
+
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+            <p:dataTable id="datalist" var="user"
+                         value="#{userController.getItems()}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{user.userId}"/>
+                </p:column>
+
+                <p:column headerText="email">
+                    <h:outputText value="#{user.email}"/>
+                </p:column>
+
+                <p:column headerText="First name">
+                    <h:outputText value="#{user.firstname}"/>
+                </p:column>
+
+                <p:column headerText="Last name">
+                    <h:outputText value="#{user.lastname}"/>
+                </p:column>
+
+                <p:column headerText="Group list">
+                    <h:outputText value="#{user.groupsList}"/>
+                </p:column>
+
+                <p:column headerText="Actions">
+                    <p:commandButton icon="ui-icon-pencil"
+                                     value="Edit"
+                                     update=":UserEditForm"
+                                     actionListener="#{userController.setSelected(user)}"
+                                     oncomplete="PF('UserEditDialog').show()"/>
+
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash" value="Delete"
+                                     update=":growl,datalist">
+                        <p:confirm header="Confirm" message="Do you really want to delete #{user}?"
+                                   icon="ui-icon-alert"/>
+                        <f:actionListener binding="#{userController.delete(user)}"/>
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton" icon="ui-icon-plus" value="Create"
+                             actionListener="#{transactionController.prepareCreate}" update=":UserCreateForm"
+                             oncomplete="PF('UserCreateDialog').show()"/>
+
+
+            <ui:include src="/includes/confirmation.xhtml"/>
+        </h:form>
+    </p:panel>
+</ui:composition>
+</html>

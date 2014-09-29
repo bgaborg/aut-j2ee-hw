@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<body>
+<ui:composition>
+    <h:form>
+        <!-- page fragment contents start here -->
+        <p:menu>
+            <p:submenu label="Navigation">
+                <p:menuitem value="Accounts" outcome="userAccounts" icon="ui-icon-folder-open">
+                    <ui:param name="key" value="value"></ui:param>
+                </p:menuitem>
+
+                <p:menuitem value="Transactions" outcome="userTransactions" icon="ui-icon-folder-open">
+                    <ui:param name="key" value="value"></ui:param>
+                </p:menuitem>
+
+                <p:menuitem value="New Transaction" outcome="/users/transactions/new" icon="ui-icon-document">
+                    <ui:param name="key" value="value"></ui:param>
+                </p:menuitem>
+
+                <p:menuitem>
+                    <p:commandLink styleClass="ui-menuitem-link" action="logout" ajax="false">
+                        <h:outputText styleClass="ui-menuitem-icon ui-icon ui-icon-power" />
+                        <h:outputText styleClass="ui-menuitem-text" value="Logout" />
+                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                    </p:commandLink>
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+        </p:confirmDialog>
+    </h:form>
+</ui:composition>
+
+</body>
+</html>

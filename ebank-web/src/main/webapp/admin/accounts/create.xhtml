@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+    <p:dialog id="AccountCreateDlg" widgetVar="AccountCreateDialog" modal="true" resizable="false" appendTo="@(body)"
+              header="Create Account" closeOnEscape="true">
+
+        <h:form id="AccountCreateForm">
+            <h:panelGroup>
+
+                <p:panelGrid columns="2" columnClasses="column">
+
+                    <p:outputLabel value="Balance" for="balance"/>
+                    <p:inputText id="balance" value="#{accountController.selected.balance}"
+                                 size="50" minlength="1" maxlength="50">
+                    </p:inputText>
+
+                    <p:outputLabel value="Currency" for="currency"/>
+                    <p:inputText id="currency" value="#{accountController.selected.currency}"
+                                 size="50" minlength="1" maxlength="50">
+                    </p:inputText>
+
+                    <p:outputLabel value="Owner" for="owner"/>
+                    <p:selectOneMenu id="owner" value="#{accountController.selected.user}" label="Owner">
+                        <f:selectItems value="#{userController.items}"/>
+                        <f:converter converterId="userConverter"/>
+                    </p:selectOneMenu>
+
+                </p:panelGrid>
+
+                <p:commandButton actionListener="#{accountController.saveNew}" value="Create"
+                                 update="AccountCreateForm,:AccountListForm:datalist"
+                                 oncomplete="handleSubmit(xhr,status,args,PF('AccountCreateDialog'));">
+                    <p:confirm header="Confirm header" message="ConfirmCreateMessage"
+                               icon="ui-icon-alert"/>
+                </p:commandButton>
+
+                <p:commandButton value="Cancel" onclick="PF('AccountCreateDialog').hide()"/>
+
+            </h:panelGroup>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+</html>

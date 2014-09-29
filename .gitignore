@@ -30,4 +30,12 @@ Thumbs.db
 
 # Intellij IDEA (see https://intellij-support.jetbrains.com/entries/23393067)
 /*.iml
+/j2eehw-ejb/*.iml
+/j2eehw-war/*.iml
 .idea/
+/classes
+/j2eehw-ear/j2eehw-ear.iml
+/ebank-util/target/
+/ebank-ejb/target/
+/ebank-web/target/
+/ebank-ear/target/

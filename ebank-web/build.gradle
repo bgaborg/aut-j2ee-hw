@@ -1,0 +1,14 @@
+apply plugin: 'war'
+
+description = 'ebank Web module'
+dependencies {
+    compile group: 'org.primefaces', name: 'primefaces', version: '5.0'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.4'
+
+    providedCompile project(':ebank-ejb')
+
+    providedCompile group: 'org.jboss.spec.javax.servlet', name: 'jboss-servlet-api_3.0_spec', version: '1.0.0.Final'
+    providedCompile group: 'javax.enterprise', name: 'cdi-api', version: '1.0-SP4'
+    providedCompile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.2.1'
+    providedCompile group: 'javax.servlet', name: 'jstl', version: '1.2'
+}

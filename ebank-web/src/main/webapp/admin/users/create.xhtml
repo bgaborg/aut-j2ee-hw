@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+    <p:dialog id="UserCreateDlg" widgetVar="UserCreateDialog" modal="true" resizable="false" appendTo="@(body)"
+              header="Create User" closeOnEscape="true">
+
+        <h:form id="UserCreateForm">
+            <h:panelGroup >
+
+                <p:panelGrid columns="2" columnClasses="column">
+
+                    <p:outputLabel value="Email" for="email"/>
+                    <p:inputText id="email" value="#{userController.selected.email}"
+                                 size="50" minlength="1" maxlength="50"/>
+
+                    <p:outputLabel value="First name" for="firstname"/>
+                    <p:inputText id="firstname" value="#{userController.selected.firstname}"
+                                 size="50" minlength="1" maxlength="50"/>
+
+                    <p:outputLabel value="Last name" for="lastname"/>
+                    <p:inputText id="lastname" value="#{userController.selected.lastname}"
+                                 size="50" minlength="1" maxlength="50"/>
+
+                    <p:outputLabel value="Password" for="password"/>
+                    <p:inputText id="password" value="#{userController.selected.password}"
+                                 size="50" minlength="1" maxlength="50"/>
+                    <p:outputLabel value="Groups" for="groups"/>
+                    <p:selectManyCheckbox id="groups" value="#{userController.selected.groupsList}" label="Groups" >
+                        <f:selectItems value="#{groupController.items}" />
+                        <f:converter converterId="groupConverter" />
+                    </p:selectManyCheckbox>
+
+                </p:panelGrid>
+
+                <p:commandButton actionListener="#{userController.saveNew}" value="Create"
+                                 update="UserCreateForm,:UserListForm:datalist"
+                                 oncomplete="handleSubmit(xhr,status,args,PF('UserCreateDialog'));">
+                    <p:confirm header="Confirm header" message="ConfirmCreateMessage"
+                               icon="ui-icon-alert"/>
+                </p:commandButton>
+
+                <p:commandButton value="Cancel" onclick="PF('UserCreateDialog').hide()"/>
+
+            </h:panelGroup>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+</html>

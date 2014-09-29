@@ -1,3 +1,8 @@
-rootProject.name = 'j2eehw'
+rootProject.name = 'ebank'
+include ':ebank-ejb'
+include ':ebank-web'
+include ':ebank-ear'
 
-include 'j2eehw-war', 'j2eehw-ejb'
+project(':ebank-ejb').projectDir = "$rootDir/ebank-ejb" as File
+project(':ebank-web').projectDir = "$rootDir/ebank-web" as File
+project(':ebank-ear').projectDir = "$rootDir/ebank-ear" as File

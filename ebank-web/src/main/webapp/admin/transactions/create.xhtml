@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+    <p:dialog id="TransactionCreateDlg" widgetVar="TransactionCreateDialog" modal="true" resizable="false" appendTo="@(body)"
+              header="Create Transaction" closeOnEscape="true">
+
+        <h:form id="TransactionCreateForm">
+            <h:panelGroup >
+
+                <p:panelGrid columns="2" columnClasses="column">
+
+                    <p:outputLabel value="Amount" for="amount"/>
+                    <p:inputText id="amount" value="#{transactionController.selected.amount}"
+                                 size="50" minlength="1" maxlength="50"/>
+
+                    <p:outputLabel value="From account" for="from"/>
+                    <p:selectOneMenu id="from" value="#{transactionController.selected.fromId}" label="Groups" >
+                        <f:selectItems value="#{accountController.allIds}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="To account" for="to"/>
+                    <p:selectOneMenu id="to" value="#{transactionController.selected.toId}" label="Groups" >
+                        <f:selectItems value="#{accountController.allIds}" />
+                    </p:selectOneMenu>
+
+                </p:panelGrid>
+
+                <p:commandButton actionListener="#{transactionController.saveNew}" value="Create"
+                                 update="TransactionCreateForm,:TransactionListForm:datalist"
+                                 oncomplete="handleSubmit(xhr,status,args,PF('TransactionCreateDialog'));">
+                    <p:confirm header="Confirm header" message="ConfirmCreateMessage"
+                               icon="ui-icon-alert"/>
+                </p:commandButton>
+
+                <p:commandButton value="Cancel" onclick="PF('TransactionCreateDialog').hide()"/>
+
+            </h:panelGroup>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+</html>

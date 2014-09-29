@@ -1,0 +1,34 @@
+description = 'ebank EAR module'
+
+apply plugin: 'ear'
+apply plugin: 'java'
+
+dependencies {
+    deploy  project(':ebank-web')
+    deploy  project(':ebank-ejb')
+
+    earlib group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
+}
+
+ear {
+    appDirName 'src/main/app'  // use application metadata found in this folder
+    // put dependent libraries into APP-INF/lib inside the generated EAR
+    libDirName 'APP-INF/lib'
+    deploymentDescriptor {  // custom entries for application.xml:
+//      fileName = "application.xml"  // same as the default value
+//      version = "6"  // same as the default value
+        applicationName = "ebank-app"
+        initializeInOrder = true
+        displayName = "ebank-app"  // defaults to project.name
+        // defaults to project.description if not set
+        description = "Ebank application for JavaEE course homework at bme aut"
+//      libraryDirectory = "APP-INF/lib"  // not needed, above libDirName setting does this
+//      module("my.jar", "java")  // won't deploy as my.jar isn't deploy dependency
+//      webModule("my.war", "/")  // won't deploy as my.war isn't deploy dependency
+        //securityRole "admin"
+        //securityRole "superadmin"
+        /*withXml { provider -> // add a custom node to the XML
+            provider.asNode().appendNode("data-source", "my/data/source")
+        }*/
+    }
+}

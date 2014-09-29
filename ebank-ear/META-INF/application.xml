@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
+             version="6">
+    <module id="ebank-ejb-EJB">
+        <ejb>ebank.jar</ejb>
+    </module>
+    <module id="ebank-web-Web_Gradle_ebank-web-1.0-SNAPSHOT.war">
+        <web>
+            <web-uri>Gradle.war</web-uri>
+            <context-root>ebank</context-root>
+        </web>
+    </module>
+</application>

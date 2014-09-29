@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<body>
+
+<ui:composition>
+    <h:form>
+        <!-- page fragment contents start here -->
+        <p:menu style="height: 100%">
+            <p:submenu label="Admin Navigation">
+                <p:menuitem value="Users" outcome="adminUsers" icon="ui-icon-folder-open" />
+                <p:menuitem value="Groups" outcome="adminGroups" icon="ui-icon-folder-open" />
+                <p:menuitem value="Accounts" outcome="adminAccounts" icon="ui-icon-folder-open" />
+                <p:menuitem value="Transactions" outcome="adminTransactions" icon="ui-icon-folder-open" />
+                <p:menuitem value="Back to login" outcome="/index" icon="ui-icon-home" />
+                <p:menuitem>
+                    <p:commandLink styleClass="ui-menuitem-link" action="logout" ajax="false">
+                        <h:outputText styleClass="ui-menuitem-icon ui-icon ui-icon-power" />
+                        <h:outputText styleClass="ui-menuitem-text" value="Logout" />
+                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                    </p:commandLink>
+                </p:menuitem>
+            </p:submenu>
+        </p:menu>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+        </p:confirmDialog>
+    </h:form>
+</ui:composition>
+
+</body>
+</html>

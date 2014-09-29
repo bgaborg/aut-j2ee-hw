@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<body>
+<ui:composition>
+    <p:panel header="List Transactions">
+        <h:form id="TransactionListForm">
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+            <p:panel>
+                <p:outputLabel value="Selected account: " for="from"/>
+                <p:selectOneMenu id="from" value="#{transactionController.userSelectedAccount}" label="Account">
+                    <p:ajax update="datalist, searchPanel"
+                            listener="#{transactionController.updateTransactionsOfUser}"/>
+                    <f:converter converterId="accountConverter"/>
+                    <f:selectItem itemLabel="Select Account" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{accountController.accountsOfUser}"/>
+                </p:selectOneMenu>
+            </p:panel>
+
+            <p:panel id="searchPanel">
+                <h:panelGrid columns="2" columnClasses="label, value" rendered="#{transactionController.displayUserTransactions.size() > 0}">
+                    <p:inputText value="#{transactionController.searchText}">
+                    </p:inputText>
+                    <p:commandButton value="Search" update="datalist">
+                        <f:actionListener binding="#{transactionController.searchAllFields()}"></f:actionListener>
+                    </p:commandButton>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:dataTable id="datalist" var="transaction" value="#{transactionController.displayUserTransactions}">
+                <p:column headerText="Transaction id">
+                    <h:outputText value="#{transaction.id}"/>
+                </p:column>
+
+                <p:column headerText="From account">
+                    <h:outputText value="#{transaction.fromId}"/>
+                </p:column>
+
+                <p:column headerText="To account">
+                    <h:outputText value="#{transaction.toId}"/>
+                </p:column>
+
+                <p:column headerText="Currency">
+                    <h:outputText value="#{transaction.currency}"/>
+                </p:column>
+
+                <p:column headerText="Amount">
+                    <h:outputText value="#{transaction.amount}"/>
+                </p:column>
+
+                <p:column headerText="Date">
+                    <h:outputText value="#{transaction.date}">
+                        <f:convertDateTime type="date" pattern="YYYY-MM-dd HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Type">
+                    <h:outputText rendered="#{transaction.toId == transactionController.userSelectedAccount.accountId}"
+                                  value="INCOME"/>
+                    <h:outputText
+                            rendered="#{transaction.fromId == transactionController.userSelectedAccount.accountId}"
+                            value="CHARGE"/>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </p:panel>
+</ui:composition>
+
+</body>
+</html>

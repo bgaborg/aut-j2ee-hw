@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+    <p:dialog id="AccountEditDlg" widgetVar="AccountEditDialog" modal="true" resizable="false" appendTo="@(body)"
+              header="Edit Account" closeOnEscape="true">
+
+        <h:form id="AccountEditForm">
+            <h:panelGroup>
+
+                <p:panelGrid columns="2" columnClasses="column">
+
+                    <p:outputLabel value="Balance" for="balance"/>
+                    <p:inputText id="balance" value="#{accountController.selected.balance}"
+                                 size="50" minlength="1" maxlength="50"/>
+
+                    <p:outputLabel value="Currency" for="currency"/>
+                    <p:inputText id="currency" value="#{accountController.selected.currency}"
+                                 size="50" minlength="1" maxlength="50">
+                    </p:inputText>
+
+                    <p:outputLabel value="Owner" for="owner"/>
+                    <p:selectOneMenu id="owner" value="#{accountController.selected.user}" label="Owner">
+                        <f:selectItems value="#{userController.items}"/>
+                        <f:converter converterId="userConverter"/>
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel value="Create date" for="createdate"/>
+                    <p:calendar id="createdate" value="#{accountController.selected.createdate}" pattern="MM/dd/yyyy HH:mm:ss" />
+
+                </p:panelGrid>
+
+                <p:commandButton actionListener="#{accountController.save}" value="Edit"
+                                 update="AccountEditForm,:AccountListForm:datalist"
+                                 oncomplete="handleSubmit(xhr,status,args,PF('AccountEditDialog'));">
+                    <p:confirm header="Confirm header" message="ConfirmEditMessage"
+                               icon="ui-icon-alert"/>
+                </p:commandButton>
+
+                <p:commandButton value="Cancel" onclick="PF('AccountEditDialog').hide()"/>
+
+            </h:panelGroup>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<body>
+<ui:composition>
+    <p:panel header="List Accounts">
+        <h:form id="AccountListForm">
+
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+            <p:dataTable id="datalist" var="account" value="#{accountController.getItems()}">
+                <p:column headerText="id">
+                    <h:outputText value="#{account.accountId}"/>
+                </p:column>
+
+                <p:column headerText="Create date">
+                    <h:outputText value="#{account.createdate}">
+                        <f:convertDateTime type="date" pattern="YYYY-MM-dd HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Balance">
+                    <h:outputText value="#{account.balance}"/>
+                </p:column>
+
+                <p:column headerText="Currency">
+                    <h:outputText value="#{account.currency}"/>
+                </p:column>
+
+                <p:column headerText="Owner">
+                    <h:outputText value="#{account.user.email}"/>
+                </p:column>
+
+                <p:column headerText="Actions">
+                    <p:commandButton icon="ui-icon-pencil"
+                                     value="Edit"
+                                     update=":AccountEditForm"
+                                     actionListener="#{accountController.setSelected(account)}"
+                                     oncomplete="PF('AccountEditDialog').show()"/>
+
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash" value="Delete"
+                                     update=":growl,datalist">
+                        <p:confirm header="Confirm" message="Do you really want to delete #{account}?"
+                                   icon="ui-icon-alert"/>
+                        <f:actionListener binding="#{accountController.delete(account)}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:commandButton id="createButton" icon="ui-icon-plus" value="Create"
+                             actionListener="#{accountController.prepareCreate}" update=":AccountCreateForm"
+                             oncomplete="PF('AccountCreateDialog').show()"/>
+
+            <ui:include src="/includes/confirmation.xhtml"/>
+        </h:form>
+    </p:panel>
+</ui:composition>
+
+</body>
+</html>
