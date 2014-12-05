@@ -9,30 +9,58 @@
 <body>
 <ui:composition>
     <p:panel header="List Transactions">
-        <h:form id="TransactionListForm">
+        <h:form id="AccountSelectForm">
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
 
             <p:panel>
                 <p:outputLabel value="Selected account: " for="from"/>
                 <p:selectOneMenu id="from" value="#{transactionController.userSelectedAccount}" label="Account">
-                    <p:ajax update="datalist, searchPanel"
+                    <p:ajax update=":TransactionListForm, :TransactionSearch"
                             listener="#{transactionController.updateTransactionsOfUser}"/>
                     <f:converter converterId="accountConverter"/>
                     <f:selectItem itemLabel="Select Account" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{accountController.accountsOfUser}"/>
                 </p:selectOneMenu>
             </p:panel>
+        </h:form>
 
+        <h:form id="TransactionSearch">
             <p:panel id="searchPanel">
-                <h:panelGrid columns="2" columnClasses="label, value" rendered="#{transactionController.displayUserTransactions.size() > 0}">
-                    <p:inputText value="#{transactionController.searchText}">
-                    </p:inputText>
-                    <p:commandButton value="Search" update="datalist">
-                        <f:actionListener binding="#{transactionController.searchAllFields()}"></f:actionListener>
+                <h:panelGrid columns="3" columnClasses="label, value"
+                             rendered="#{transactionController.userSelectedAccount != null}">
+                    <h:outputText value="From account: "/>
+                    <p:inputText value="#{transactionController.sFromAccount}" mask="9?" />
+                    <p:commandButton value="Search" update=":TransactionListForm, :TransactionSearch">
+                        <f:actionListener binding="#{transactionController.searchFromAccount()}"></f:actionListener>
+                    </p:commandButton>
+
+                    <h:outputText value="To account: "/>
+                    <p:inputText value="#{transactionController.sToAccount}"/>
+                    <p:commandButton value="Search" update=":TransactionListForm, :TransactionSearch">
+                        <f:actionListener binding="#{transactionController.searchToAccount()}"></f:actionListener>
+                    </p:commandButton>
+
+                    <h:outputText value="Amount: "/>
+                    <p:inputText value="#{transactionController.sAmount}"/>
+                    <p:commandButton value="Search" update=":TransactionListForm, :TransactionSearch">
+                        <f:actionListener binding="#{transactionController.searchAmount()}"></f:actionListener>
+                    </p:commandButton>
+
+
+                    <h:outputText value="Date: "/>
+                    <p:panel>
+                        <p:calendar value="#{transactionController.sFromDate}" pattern="yyyy/MM/dd"  />
+                        <p:calendar value="#{transactionController.sToDate}" pattern="yyyy/MM/dd" />
+                    </p:panel>
+
+                    <p:commandButton value="Search" update=":TransactionListForm, :TransactionSearch">
+                        <f:actionListener binding="#{transactionController.searchDate()}"></f:actionListener>
                     </p:commandButton>
                 </h:panelGrid>
             </p:panel>
+        </h:form>
 
+        <h:form id="TransactionListForm">
             <p:dataTable id="datalist" var="transaction" value="#{transactionController.displayUserTransactions}">
                 <p:column headerText="Transaction id">
                     <h:outputText value="#{transaction.id}"/>

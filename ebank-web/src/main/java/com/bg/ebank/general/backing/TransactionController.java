@@ -14,8 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @ManagedBean
 @ViewScoped
@@ -28,7 +27,7 @@ public class TransactionController extends AbstractController<Transaction> {
     AccountFacade accountFacade;
 
     List<Transaction> displayUserTransactions;
-    Account userSelectedAccount;
+    Account userSelectedAccount = null;
 
     public TransactionController() {
         super(Transaction.class);
@@ -119,18 +118,72 @@ public class TransactionController extends AbstractController<Transaction> {
         }
     }
 
-    String searchText;
+    Long sFromAccount;
+    Long sToAccount;
+    Double sAmount;
+    Date sFromDate = new Date();
+    Date sToDate = new Date();
 
-    public String getSearchText() {
-        return searchText;
+
+    public Long getsFromAccount() {
+        return sFromAccount;
     }
 
-    public void setSearchText(String searchText) {
-        this.searchText = searchText;
+    public void setsFromAccount(Long sFromAccount) {
+        this.sFromAccount = sFromAccount;
     }
 
-    public void searchAllFields(){
-        System.out.println(searchText);
-        displayUserTransactions = transactionFacade.searchByAllFieldsLike(searchText);
+    public Long getsToAccount() {
+        return sToAccount;
     }
+
+    public void setsToAccount(Long sToAccount) {
+        this.sToAccount = sToAccount;
+    }
+
+    public Double getsAmount() {
+        return sAmount;
+    }
+
+    public void setsAmount(Double sAmount) {
+        this.sAmount = sAmount;
+    }
+
+    public Date getsFromDate() {
+        return sFromDate;
+    }
+
+    public void setsFromDate(Date sFromDate) {
+        this.sFromDate = sFromDate;
+    }
+
+    public Date getsToDate() {
+        return sToDate;
+    }
+
+    public void setsToDate(Date sToDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(sToDate);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        this.sToDate = calendar.getTime();
+    }
+
+    public void searchFromAccount(){
+        displayUserTransactions = transactionFacade.getByFromAccount(sFromAccount);
+    }
+
+    public void searchToAccount(){
+        displayUserTransactions = transactionFacade.getByToAccount(sToAccount);
+    }
+
+    public void searchAmount(){
+        displayUserTransactions = transactionFacade.getByAmount(sAmount);
+    }
+
+    public void searchDate(){
+        displayUserTransactions = transactionFacade.getByDate(sFromDate, sToDate);
+    }
+
 }

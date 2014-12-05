@@ -6,11 +6,14 @@ import com.bg.ebank.exceptions.BankException;
 import com.bg.ebank.facade.AccountFacade;
 import com.bg.ebank.facade.TransactionFacade;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.EJBContext;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
 
 @WebService
 @TransactionAttribute(TransactionAttributeType.REQUIRED)

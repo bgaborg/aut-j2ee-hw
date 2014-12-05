@@ -15,17 +15,20 @@ import java.util.Date;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Transaction.getAllByAccountId",
-                query = "SELECT t FROM Transaction t " +
-                        "WHERE t.fromId = :accountId OR t.toId = :accountId"),
-
-        @NamedQuery(name = "Transaction.searchByAllFieldsLike",
-        query = "SELECT t FROM Transaction t WHERE " +
-                "t.id = :searchStr " +
-                "OR t.fromId = :searchStr " +
-                "OR t.toId = :searchStr " +
-                "OR t.amount = :searchStr " +
-                "OR t.currency LIKE :searchStr " +
-                "OR t.date = :searchStr")
+                query = "SELECT t FROM Transaction t WHERE t.fromId = :accountId OR t.toId = :accountId"
+        ),
+        @NamedQuery(name = "Transaction.getByFromAccount",
+                query = "SELECT t FROM Transaction t WHERE t.fromId = :fromId"
+        ),
+        @NamedQuery(name = "Transaction.getByToAccount",
+                query = "SELECT t FROM Transaction t WHERE t.toId = :toId"
+        ),
+        @NamedQuery(name = "Transaction.getByAmount",
+                query = "SELECT t FROM Transaction t WHERE t.amount = :amount"
+        ),
+        @NamedQuery(name = "Transaction.getByDate",
+                query = "SELECT t FROM Transaction t WHERE t.date <= :toDate AND t.date >= :fromDate "
+        )
 })
 public class Transaction implements Serializable {
     @Id
