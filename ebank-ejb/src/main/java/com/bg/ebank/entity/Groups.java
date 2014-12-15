@@ -29,11 +29,11 @@ public class Groups implements Serializable {
 
     @Id
     @NotNull
-    @Size(min = 1, max = 50, message="{group.name}")
+    @Size(min = 1, max = 50)
     @Column(name = "name", unique = true)
     private String name;
 
-    @Size(max = 300, message="{group.description}")
+    @Size(max = 300)
     @Column(name = "description")
     private String description;
 

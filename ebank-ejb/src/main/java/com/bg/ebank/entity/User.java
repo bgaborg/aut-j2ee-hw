@@ -43,23 +43,23 @@ public class User implements Serializable {
     protected Integer userId;
 
     @Basic(optional = false)
-    @Size(min = 1, max = 50, message = "{User.firstname}")
+    @Size(min = 1, max = 50)
     @Column(name = "FIRST_NAME")
     protected String firstname;
 
     @Basic(optional = false)
-    @Size(min = 1, max = 100, message = "{User.lastname}")
+    @Size(min = 1, max = 100)
     @Column(name = "LAST_NAME")
     protected String lastname;
 
-    @Pattern(regexp = ".+@.+\\.[a-z]+", message = "{User.email}")
-    @Size(min = 1, max = 45, message = "{User.email}")
+    @Pattern(regexp = ".+@.+\\.[a-z]+")
+    @Size(min = 1, max = 45)
     @Basic(optional = false)
     @Column(name = "USER_EMAIL", unique = true)
     protected String email;
 
     @Basic(optional = false)
-    @Size(min = 1, max = 100, message = "{User.password}")
+    @Size(min = 1, max = 100)
     @Column(name = "PASSWORD")
     protected String password;
 
